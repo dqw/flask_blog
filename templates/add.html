@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <form action="{{ url_for('add') }}" method=post class=add-entry>
+        <dl>
+            <dt>Title:
+            <dd><input type=text size=30 name=blog_title>
+            <dt>Content:
+            <dd><textarea name=blog_content rows=5 cols=40></textarea>
+            <dd><input type=submit value=Share>
+        </dl>
+    </form>
+</div>
+{% endblock %}
+

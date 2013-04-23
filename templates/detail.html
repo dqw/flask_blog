@@ -1,0 +1,16 @@
+<!doctype html>
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <div class="span10">
+        <h2>{{ blog[0]}}</h2>
+        <p>{{ blog[1]|safe }}</p>
+        <p>{{ blog[2]}}</p>
+    </div>
+    <div class="span2">
+        sidebar
+        <!--Sidebar content-->
+    </div>
+</div>
+{% endblock %}
+

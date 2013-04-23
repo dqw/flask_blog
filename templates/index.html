@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="span10">
+            <ul class="unstyled">
+                {% for blog in blogs %}
+                <li>
+                <h2><a href="{{ url_for('detail', blog_id=blog.blog_id) }}" target="_blank">{{ blog.blog_title }}</a></h2>
+                <p>{{ blog.blog_content|safe }}</p>
+                <p>{{ blog.blog_time }}</p>
+                </li>
+                {% else %}
+                <li><em>没有文章</em></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="span2">
+            sidebar
+            <!--Sidebar content-->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
