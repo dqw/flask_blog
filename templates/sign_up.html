@@ -1,0 +1,22 @@
+<!doctype html>
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+    <form action="{{ url_for('sign_up') }}" method="post">
+        <fieldset>
+            <legend>注册</legend>
+            <label>用户名</label>
+            <input type="text" name="username">
+            <label>密码</label>
+            <input type="password" name="password">
+            <label>确认密码</label>
+            <input type="password" name="password2">
+            <p>
+            <input type="submit" value="注册" class="btn">
+            </p>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}
+

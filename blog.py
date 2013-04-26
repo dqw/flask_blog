@@ -6,6 +6,7 @@ import time
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 from contextlib import closing
 from model.post import Post
+from model.user import User
 
 app = Flask(__name__)
 app.config.from_object("config")
@@ -30,6 +31,17 @@ def add():
         return redirect(url_for('index'))
     else:
         return render_template('add.html')
+
+@app.route('/sign_up/', methods=['GET', 'POST'])
+def sign_up():
+    error = None
+    if request.method == 'POST':
+        result = User.add(request.form['username'], request.form['password'])
+        flash('sign up success')
+        return redirect(url_for('index'))
+    else:
+        return render_template('sign_up.html', error=error)
+
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
