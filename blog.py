@@ -7,6 +7,8 @@ from flask import Flask, request, session, g, redirect, url_for, abort, render_t
 from contextlib import closing
 from model.post import Post
 from model.user import User
+import pdb
+#pdb.set_trace()
 
 app = Flask(__name__)
 app.config.from_object("config")
@@ -24,7 +26,7 @@ def detail(blog_id):
 @app.route('/add/', methods=['GET', 'POST'])
 def add():
     if request.method == 'POST':
-        if not session.get('logged_in'):
+        if not session.get('user_id'):
             abort(401)
         result = Post.add(1, request.form['blog_title'], request.form['blog_content'])
         flash('add success')
@@ -47,20 +49,24 @@ def sign_up():
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME']:
-            error = 'Invalid username'
-        elif request.form['password'] != app.config['PASSWORD']:
-            error = 'Invalid password'
-        else:
-            session['logged_in'] = True
-            flash('You were logged in')
+        user = User.verify(request.form['username'], request.form['password'])
+        if user:
+            session['user_id'] = user['user_id'] 
+            session['user_name'] = user['user_name'] 
+            session['user_nickname'] = user['user_nickname'] 
+            pdb.set_trace()
             return redirect(url_for('index'))
+        else:
+            flash('You were logged in')
+            return redirect(url_for('login'))
     else:
         return render_template('login.html', error=error)
 
 @app.route('/logout/')
 def logout():
-    session.pop('logged_in', None)
+    session.pop('user_id', None)
+    session.pop('user_name', None)
+    session.pop('user_nickname', None)
     flash('You were logged out')
     return redirect(url_for('index'))
 
