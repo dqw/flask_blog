@@ -8,7 +8,7 @@
         <link href="{{ url_for('static', filename='css/blog.css') }}" rel="stylesheet" media="screen">
     </head>
     <body>
-        <div class="row blog-head">
+        <div class="navbar navbar-fixed-top blog-head">
             <div class="container">
                 <div class="pull-right">
                     {% if not session.user_id%}
@@ -20,21 +20,17 @@
                     <a href="{{ url_for('manage') }}">管理</a>
                     {% endif %}
                 </div>
-                <h3><a href="{{ url_for('index') }}">DQW的Blog</a></h3>
-                <p><small>用合适的技术解决实际的问题</small></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="container">
-                <div class="navbar">
-                    <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
+                <div class="brand">
+                    <a href="{{ url_for('index') }}">DQW的Blog</a><small>用合适的技术解决实际的问题</small>
                 </div>
+                <ul class="nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
             </div>
         </div>
+        <div class="row clear-navbar"></div>
         {% block body %}{% endblock %}
         <div class="row">
             <div class="container">
@@ -43,6 +39,8 @@
         </div>
         <script src="{{ url_for('static', filename='js/jquery-1.8.3.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/blog.js') }}"></script>
+        {% block javascript %}{% endblock %}
     </body>
 </html>
 

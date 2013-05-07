@@ -2,21 +2,59 @@
 {% extends "layout.html" %}
 {% block body %}
 <div class="container">
-    {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
-    <form action="{{ url_for('sign_up') }}" method="post">
+    <form id="form_sign_up" action="{{ url_for('sign_up') }}" method="post">
         <fieldset>
             <legend>注册</legend>
             <label>用户名</label>
-            <input type="text" name="username">
+            <input id="username" type="text" name="username">
             <label>密码</label>
-            <input type="password" name="password">
+            <input id="password" type="password" name="password">
             <label>确认密码</label>
-            <input type="password" name="password2">
+            <input id="password2" type="password" name="password2">
+            <p><span id="error" class="error" >{% if error %}{{ error }}{% endif %}</span></p>
             <p>
-            <input type="submit" value="注册" class="btn">
+            <input id="btn_sign_up" type="button" value="注册" class="btn">
             </p>
         </fieldset>
     </form>
 </div>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#btn_sign_up").click(function() {
+        var that = this;
+        var username = $("#username").val();
+        var password = $("#password").val();
+        if(username == "") {
+            show_error("用户名不能为空");
+            return false;
+        }
+        if(password == "") {
+            show_error("密码不能为空");
+            return false;
+        }
+        if($("#password2").val() !== password) {
+            show_error("密码不一致");
+            return false;
+        }
+        $.getJSON("/username/"+username)
+        .done(function(result) { 
+            if(result === false) {
+                $(that).prop("disabled", true);
+                $("#form_sign_up").submit();
+            } else {
+                show_error("用户名已存在");
+            }
+        });
+
+    });
+
+    function show_error(message) {
+        $("#error").text(message);
+    }
+
+});
+</script>
 {% endblock %}
 

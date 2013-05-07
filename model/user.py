@@ -38,6 +38,16 @@ class User(object):
             return None
 
     @classmethod
+    def exist(self, user_name):
+        cur = db_conn.execute('select user_id from fb_user where user_name = "%s"' % user_name)
+        result = cur.fetchone()
+        if result:
+            return True
+        else:
+            return False
+
+
+    @classmethod
     def add(self, user_name, user_password):
         cursor = None
         try:

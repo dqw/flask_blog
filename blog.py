@@ -3,7 +3,7 @@
 # imports
 import MySQLdb
 import time
-from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
+from flask import Flask, jsonify, request, session, g, redirect, url_for, abort, render_template, flash
 from contextlib import closing
 from model.post import Post
 from model.user import User
@@ -38,12 +38,26 @@ def add():
 def sign_up():
     error = None
     if request.method == 'POST':
-        result = User.add(request.form['username'], request.form['password'])
-        flash('sign up success')
-        return redirect(url_for('index'))
+        if User.exist(request.form['username']):
+            error = "username exist"
+            return render_template('sign_up.html', error=error)
+        else:
+            result = User.add(request.form['username'], request.form['password'])
+            flash('sign up success')
+            return redirect(url_for('index'))
     else:
         return render_template('sign_up.html', error=error)
 
+@app.route('/hello/', methods=['GET'])
+def hello():
+    return 'Hello'
+
+@app.route('/username/<username>', methods=['GET'])
+def username(username):
+    if User.exist(username):
+        return 'true'
+    else:
+        return 'false'
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
