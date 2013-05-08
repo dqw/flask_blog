@@ -3,9 +3,9 @@
 {% block body %}
 <div class="container">
     <div class="span10">
-        <h2>{{ blog[0]}}</h2>
-        <p>{{ blog[1]|safe }}</p>
-        <p>{{ blog[2]}}</p>
+        <h2>{{ blog.title }}</h2>
+        <div>{{ blog.content }}</div>
+        <p>{{ blog.date }}</p>
     </div>
     <div class="span2">
         sidebar

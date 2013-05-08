@@ -68,7 +68,7 @@ def login():
             session['user_id'] = user['user_id'] 
             session['user_name'] = user['user_name'] 
             session['user_nickname'] = user['user_nickname'] 
-            pdb.set_trace()
+            #pdb.set_trace()
             return redirect(url_for('index'))
         else:
             flash('You were logged in')
