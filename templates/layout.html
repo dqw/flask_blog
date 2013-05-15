@@ -1,7 +1,9 @@
+</html>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Blog</title>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
         <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet" media="screen">
@@ -21,7 +23,7 @@
                     {% endif %}
                 </div>
                 <div class="brand">
-                    <a href="{{ url_for('index') }}">DQW的Blog</a><small>用合适的技术解决实际的问题</small>
+                    <a href="{{ url_for('index') }}">{{ config.BLOG_TITLE }}</a><small>{{ config.BLOG_SLOGAN }}</small>
                 </div>
                 <ul class="nav">
                     <li class="active"><a href="#">Home</a></li>
